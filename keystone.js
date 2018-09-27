@@ -12,15 +12,8 @@ var keystone = require('keystone');
 keystone.init({
 	'name': 'keystone api',
 	'brand': 'keystone api',
-
-	'sass': 'public',
-	'static': 'public',
 	'favicon': 'public/favicon.ico',
-	'views': 'templates/views',
 	'view engine': 'pug',
-
-	'emails': 'templates/emails',
-
 	'auto update': true,
 	'session': true,
 	'auth': true,
@@ -50,7 +43,6 @@ keystone.set('cors allow origin', true);
 keystone.set('nav', {
 	posts: ['posts', 'post-categories'],
 	galleries: 'galleries',
-	enquiries: 'enquiries',
 	users: 'users',
 });
 
