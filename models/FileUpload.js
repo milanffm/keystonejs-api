@@ -2,31 +2,39 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
 /**
- * Image Upload Model
+ * File Upload Model
  * ===========
  * A database model for uploading images to the local file system
  */
 
-var ImageUpload = new keystone.List('ImageUpload');
+var FileUpload = new keystone.List('FileUpload');
 
-ImageUpload.add({
-	// name: { type: Types.Key, required: true, index: true }, //requiring name breaks image upload.
+var myStorage = new keystone.Storage({
+	adapter: keystone.Storage.Adapters.FS,
+	fs: {
+		path: keystone.expandPath('./public/uploads/files'), // required; path where the files should be stored
+		publicPath: '/public/uploads/files', // path where files will be served
+	}
+});
+
+FileUpload.add({
 	name: { type: Types.Key, index: true},
-	image: {
+	file: {
 		type: Types.File,
-		dest: 'public/uploads/images',
-		label: 'Image',
-		allowedTypes: [ 'image/jpeg', 'image/png', 'image/gif'],
-		filename: function(item, file) {
-			return item.id + '.' + file.extension;
-		} },
+		storage: myStorage
+	},
+	createdTimeStamp: { type: String },
 	alt1: { type: String },
 	attributes1: { type: String },
-	category: { type: String },      // Used to categorize widgets.
-	priorityId: { type: String } // Used to prioritize display order.
+	category: { type: String },      //Used to categorize widgets.
+	priorityId: { type: String },    //Used to prioritize display order.
+	parent: { type: String },
+	children: { type: String },
+	url: {type: String},
+	fileType: {type: String}
 
 });
 
 
-ImageUpload.defaultColumns = 'name';
-ImageUpload.register();
+FileUpload.defaultColumns = 'name';
+FileUpload.register();
