@@ -12,13 +12,7 @@ var keystone = require('keystone');
 keystone.init({
 	'name': 'keystone api',
 	'brand': 'keystone api',
-
-	'sass': 'public',
 	'static': 'public',
-	'favicon': 'public/favicon.ico',
-	'views': 'templates/views',
-	'view engine': 'pug',
-
 	'auto update': true,
 	'session': true,
 	'auth': true,
