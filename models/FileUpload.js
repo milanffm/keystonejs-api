@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var nameFunctions = require('keystone-storage-namefunctions');
 
 /**
  * File Upload Model
@@ -9,32 +10,27 @@ var Types = keystone.Field.Types;
 
 var FileUpload = new keystone.List('FileUpload');
 
-var myStorage = new keystone.Storage({
+var storage = new keystone.Storage({
 	adapter: keystone.Storage.Adapters.FS,
 	fs: {
-		path: keystone.expandPath('./public/uploads/files'), // required; path where the files should be stored
-		publicPath: '/public/uploads/files', // path where files will be served
+		path: keystone.expandPath('./public/uploads/projects/'), // required; path where the files should be stored
+		publicPath: '/uploads/projects/', // path where files will be served
+		generateFilename: nameFunctions.originalFilename
+	},
+	schema: {
+		url: true,
 	}
-});
+})
 
 FileUpload.add({
-	name: { type: Types.Key, index: true},
-	file: {
+	name: { type: Types.Key, index: true },
+	image: {
 		type: Types.File,
-		storage: myStorage
+		storage: storage,
+		thumb: true
 	},
-	createdTimeStamp: { type: String },
-	alt1: { type: String },
-	attributes1: { type: String },
-	category: { type: String },      //Used to categorize widgets.
-	priorityId: { type: String },    //Used to prioritize display order.
-	parent: { type: String },
-	children: { type: String },
-	url: {type: String},
-	fileType: {type: String}
-
+	createdTimeStamp: { type: String }
 });
 
-
-FileUpload.defaultColumns = 'name';
+FileUpload.defaultColumns = 'name, image';
 FileUpload.register();

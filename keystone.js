@@ -12,8 +12,13 @@ var keystone = require('keystone');
 keystone.init({
 	'name': 'keystone api',
 	'brand': 'keystone api',
+
+	'sass': 'public',
+	'static': 'public',
 	'favicon': 'public/favicon.ico',
+	'views': 'templates/views',
 	'view engine': 'pug',
+
 	'auto update': true,
 	'session': true,
 	'auth': true,
@@ -42,7 +47,6 @@ keystone.set('cors allow origin', true);
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
 	posts: ['posts', 'post-categories'],
-	galleries: 'galleries',
 	users: 'users',
 });
 
