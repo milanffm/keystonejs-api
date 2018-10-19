@@ -15,7 +15,8 @@ var storage = new keystone.Storage({
 	fs: {
 		path: keystone.expandPath('./public/uploads/projects/'), // required; path where the files should be stored
 		publicPath: '/uploads/projects/', // path where files will be served
-		generateFilename: nameFunctions.originalFilename
+		generateFilename: nameFunctions.originalFilename,
+		whenExists: 'overwrite',
 	},
 	schema: {
 		url: true,
